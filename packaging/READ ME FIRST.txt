@@ -1,0 +1,25 @@
+Meeting Transcriptor
+====================
+
+Records your meetings and writes down what is said, on your own computer.
+No account, no subscription, nothing is uploaded.
+
+HOW TO START
+1. Unzip the whole folder somewhere (for example Documents). Keep all the files together.
+2. Double-click MeetingTranscriptor.exe.
+3. If Windows shows "Windows protected your PC", click "More info" and then "Run anyway".
+4. The first time, choose where your meetings should be saved.
+5. The first start needs internet for a few minutes to download the speech model.
+   After that the app works offline.
+
+HOW TO USE
+- Press "Start recording" before or during a call, or press Ctrl+Alt+R,
+  or say "start recording". Say "stop recording" to finish.
+- It hears your microphone (You) and whatever plays through your speakers (Others).
+  Nothing joins the meeting.
+- Headphones give the cleanest result.
+- Settings: choose your microphone, language and save folder.
+
+NEEDS
+- Windows 10 or 11 (64-bit).
+- Tell people when you record them. In many places that is required by law.

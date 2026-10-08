@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meeting Transcriptor</title>
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <aside>
+    <div class="brand"><img class="mark" src="logo.png" alt="">Meeting <b>Transcriptor</b></div>
+
+    <button id="rec" class="rec" disabled>
+      <span class="dot"></span><span id="recLabel">Start recording</span>
+    </button>
+    <div id="recInfo" class="rec-info">
+      <div id="hint" class="hint"></div>
+      <div id="meters" class="meters" hidden>
+        <label>You <i><b id="meterMic"></b></i></label>
+        <label>Others <i><b id="meterSystem"></b></i></label>
+      </div>
+    </div>
+    <div id="modelBanner" class="banner" hidden></div>
+
+    <input id="search" type="search" placeholder="Search meetings" autocomplete="off">
+    <div id="list" class="list"></div>
+
+    <div class="side-foot">
+      <button id="importBtn" class="ghost">Import file</button>
+      <button id="settingsBtn" class="ghost">Settings</button>
+    </div>
+  </aside>
+
+  <main>
+    <section id="empty" class="empty">
+      <h1>No meeting selected</h1>
+      <p>Press <b>Start recording</b> before or during a call. The app listens to your
+         microphone and to whatever plays through your speakers, so nothing joins the meeting.</p>
+    </section>
+
+    <section id="detail" hidden>
+      <header>
+        <input id="title" class="title" spellcheck="false" maxlength="120">
+        <div id="meta" class="meta"></div>
+      </header>
+      <div class="toolbar">
+        <button id="copyBtn" class="primary" title="Copy the whole transcript">Copy all</button>
+        <button id="copyLastBtn" title="Copy only the most recent section">Copy latest</button>
+        <span class="group">
+          <span class="group-label">Export</span>
+          <button data-export="txt">TXT</button>
+          <button data-export="md">MD</button>
+          <button data-export="srt">SRT</button>
+        </span>
+        <button id="improveBtn" title="Re-transcribe the saved audio with the larger model">Improve accuracy</button>
+        <span class="spacer"></span>
+        <button id="deleteBtn" class="danger">Delete</button>
+      </div>
+      <div id="progress" class="progress" hidden><div id="progressBar"></div><span id="progressLabel"></span></div>
+      <audio id="player" controls preload="metadata" hidden></audio>
+      <div id="transcript" class="transcript"><div id="segs"></div><div id="live"></div></div>
+    </section>
+  </main>
+</div>
+
+<dialog id="settings">
+  <form method="dialog">
+    <h2>Settings</h2>
+    <label>Spoken language
+      <select id="setLanguage"></select>
+    </label>
+    <label>Microphone
+      <select id="setMic"></select>
+      <small>Used for your voice. Applies from the next recording.</small>
+    </label>
+    <label>Live transcription model
+      <select id="setLive"></select>
+      <small>Words appear as you speak, then this model tidies each sentence when you pause.</small>
+    </label>
+    <label>"Improve accuracy" model
+      <select id="setHq"></select>
+      <small>Downloaded the first time it is used.</small>
+    </label>
+    <label class="check">
+      <input id="setVoice" type="checkbox">
+      <span>Listen for the voice commands "start recording" and "stop recording"</span>
+    </label>
+    <div class="folder">
+      <span>Meetings are saved in <code id="folderPath"></code></span>
+      <span class="folder-buttons">
+        <button type="button" id="changeFolder">Change…</button>
+        <button type="button" id="openFolder">Open</button>
+      </span>
+    </div>
+    <div class="dialog-foot"><button class="primary">Done</button></div>
+  </form>
+</dialog>
+
+<dialog id="welcome">
+  <h2>Where should your meetings be saved?</h2>
+  <p class="welcome-text">Recordings and transcripts are kept in one folder on this computer.
+     You'll only be asked once, and you can change it later in Settings.</p>
+  <code id="welcomePath" class="welcome-path"></code>
+  <div class="dialog-foot">
+    <button type="button" id="welcomeChoose">Choose another folder…</button>
+    <button type="button" id="welcomeDefault" class="primary">Use this folder</button>
+  </div>
+</dialog>
+
+<div id="toast" class="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
