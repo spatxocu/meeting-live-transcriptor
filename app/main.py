@@ -544,9 +544,27 @@ def already_running():
     return True
 
 
+def unblock_own_files():
+    """Clear the "downloaded from the internet" mark from the packaged app's files.
+
+    Windows puts that mark on everything unzipped from a downloaded archive, and .NET then
+    refuses to load the DLLs the window needs, so the app would crash on start.
+    """
+    if not getattr(sys, "frozen", False):
+        return
+    for folder, _, names in os.walk(BASE):
+        for name in names:
+            if name.lower().endswith((".dll", ".exe", ".pyd")):
+                try:
+                    os.remove(os.path.join(folder, name) + ":Zone.Identifier")
+                except OSError:
+                    pass
+
+
 def main():
     if already_running():
         return
+    unblock_own_files()
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("Meeting.Transcriptor")
     config.ROOT.mkdir(parents=True, exist_ok=True)
     if sys.stderr is None or sys.stdout is None:    # started without a console
